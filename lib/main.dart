@@ -27,11 +27,20 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
+    setState(() {});
+  }
+
+  GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
+  MyHomePageState of(BuildContext context) {
+    return context.findAncestorStateOfType();
+  }
+
+  void rebuildHomePage() {
     setState(() {});
   }
 
@@ -39,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     print('BUILD LẠI MYHOMEPAGE');
     return Scaffold(
+      key: key,
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -46,7 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[HomePageChild1(), HomePageChild2()],
+          children: <Widget>[
+            HomePageChild1(
+              keyScaffod: key,
+            ),
+            HomePageChild2()
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
